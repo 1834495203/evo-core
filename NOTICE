@@ -1,0 +1,16 @@
+EvoCore
+
+This project is a modified and refactored autonomous research framework based
+on EvoScientist (https://github.com/EvoScientist/EvoScientist).
+
+Upstream attribution: Copyright 2026 EvoScientist.
+The upstream Apache License, Version 2.0 is retained in LICENSE.
+
+EvoCore changes include a separate research kernel, pluggable module contracts,
+an external evidence and experiment harness, persistent literature and notes,
+researcher/coder separation, observability and OpenHands coding integration.
+This repository is maintained independently from the upstream project.
+
+OpenHands and other external dependencies retain their own licenses. Installed
+dependency environments and autonomous research run artifacts are not included
+in this source distribution.

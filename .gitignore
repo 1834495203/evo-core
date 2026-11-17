@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.pytest_tmp/
+.tmp_sb/
+
+# Environments & secrets
+.env
+.env.*
+.venv/
+venv/
+.module_envs/
+.module_state/
+
+# Autonomous research run outputs (datasets, traces, logs)
+runs/
+.evo_run/
+.bg_processes/
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store

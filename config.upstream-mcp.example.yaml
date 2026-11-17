@@ -1,0 +1,16 @@
+# Merge into EvoScientist's MCP configuration. Paths below target this checkout.
+# This file is a connection example; it does not change the user's global configuration.
+research-harness:
+  transport: stdio
+  command: 'D:\folder\python_project\learn\EvoScientist\.venv\Scripts\python.exe'
+  args:
+    - 'D:\folder\python_project\learn\evo-core\serve_harness.py'
+    - --config
+    - 'D:\folder\python_project\learn\evo-core\config.default.yaml'
+    - --workspace
+    - 'D:\folder\python_project\learn\evo-core\runs\upstream\workspace'
+    - --run-dir
+    - 'D:\folder\python_project\learn\evo-core\runs\upstream\run_meta'
+    - --task
+    - 'Conduct research autonomously; use the harness to store and retrieve evidence as needed.'
+  expose_to: [main, research-agent, code-agent]

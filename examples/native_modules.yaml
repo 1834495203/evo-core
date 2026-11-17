@@ -1,0 +1,13 @@
+# Run from evo-core/. Adds a native capability without changing kernel code.
+model: deepseek-flash
+workspace: ./example_workspace
+run_dir: ./example_run_meta
+strict_roles: true
+modules:
+  coding: {options: {require_review: true}}
+  datasets:
+    contract: native
+    factory: evo_core.modules.example_catalog:make_catalog
+plugins:
+  literature: {enabled: false}
+  subagents: {roles: [coder]}

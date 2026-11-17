@@ -1,0 +1,78 @@
+# EvoCore configuration: minimal core kernel + pluggable modules.
+# Set max_calls: null and max_wall_seconds: null for unbounded autonomous runs.
+
+model: deepseek-flash
+auxiliary_model: null          # defaults to model when null
+base_url: null                 # falls back to OPENAI_BASE_URL / .env
+api_key: null                  # falls back to OPENAI_API_KEY / .env
+thinking: enabled              # enabled | disabled | provider_default
+reasoning_effort: medium       # low | medium | high (used when thinking=enabled)
+temperature: 0.2
+max_output_tokens: 24000
+request_timeout: 180.0
+max_retries: 4
+
+workspace: ./workspace
+strict_roles: true             # host enforces permissions across all tool entry points
+role_permissions: {}           # optional explicit grants per researcher/coder/qa role
+modules:
+  literature: {enabled: true}
+  notebook: {enabled: true}
+  coding:
+    enabled: true
+    factory: evo_core.modules.openhands:coding_factory
+    options: {require_review: true}
+  experiments: {enabled: true, requires: [coding]}
+  context: {enabled: true}
+  tracing: {enabled: true}
+run_dir: ./run_meta
+science_python: null           # optional path to science python Scripts/bin dir
+dangerous_mode: false
+command_timeout: 180
+max_output_chars: 24000
+
+plugins:
+  budget:
+    enabled: true
+    max_calls: null            # null = unlimited turns
+    max_wall_seconds: null     # null = unlimited wall time
+    soft_converge_ratio: 0.75
+    hard_report_ratio: 0.90
+
+  compactor:
+    enabled: true
+    context_limit_tokens: 96000
+    trigger_ratio: 0.72
+    keep_recent_messages: 10
+    max_tool_result_chars: 12000
+
+  literature:
+    enabled: false            # project literature module supplies find/add/list/read tools
+    providers: [arxiv, openalex, github, semantic_scholar, webpage]
+    timeout: 25.0
+
+  harness:
+    enabled: true
+    max_experiments: 16
+    max_parallel_workers: 2
+    executor: local
+    mlflow_tracking_uri: null
+
+  sanity_gate:
+    enabled: true
+    check_python_syntax: true
+    enforce_test_before_sweep: true
+
+  subagents:
+    enabled: false            # OpenHands owns the coding agent; no local delegate_task fallback
+    max_child_calls: 25
+    roles: [coder]
+
+  memory:
+    enabled: true
+    mode: lightweight          # off | lightweight | full
+    memory_dir: null           # defaults to <run_dir>/memory
+
+  skills:
+    enabled: false             # opt-in skill directories
+    dirs: []
